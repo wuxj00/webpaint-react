@@ -1,4 +1,4 @@
-import { uuid } from '../utils/wp';
+import { uuid } from '../utils/';
 
 export default class Entity{
     constructor(param = {}){
