@@ -16,31 +16,53 @@
  */
 import React,{Component} from 'react';
 import LayerView from '../layer/Layer';
+import {layers} from '../../layers/';
 
 require('./style.css');
+const win = window;
 class LayerContainer extends Component{
     constructor(props){
         super(props);
         this.state = {
-            layerNames: ['map-layer', 'vector-layer', 'edit-layer', 'trans-layer', 'selection-layer']
+            width: '0px',
+            height: '0px'
         };
+        this.resizeHandler.bind(this);
+        win.addEventListener('resize',()=>{
+            this.resizeHandler();
+        });
+    }
+    resizeHandler(){
+        const el = this.el;
+        if(el instanceof HTMLElement) {
+            const bbox = el.getBoundingClientRect();
+            this.setState({
+                width: `${bbox.width}px`,
+                height: `${bbox.height}px`
+            });
+        } 
+    }
+    componentWillMount() {
     }
     componentDidMount(){
+        this.resizeHandler();       
     }
     componentDidUpdate(){
-
     }
     render(){
-        const { layerNames } = this.state;
+        const { width, height } = this.state;
         return (
-            <div className={'layer-wrapper'} >
+            <div className={'layer-wrapper'} ref={(c) => { this.el = c; }}>
                 {
-                    layerNames.map((name,index) =>
-                            <LayerView key={index} name={name}/>
+                    layers.map((name,index) =>
+                        <LayerView key={index} name={name} width={width} height={height}/>
                     )
                 }
             </div>
         );
+    }
+    componentWillUnmount(){
+        win.removeEventListener('resize',this.resizeHandler);
     }
 }
 export default LayerContainer;

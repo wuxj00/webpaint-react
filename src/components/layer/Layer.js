@@ -17,21 +17,27 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 
-require("./style.css");
+require('./style.css');
+
 class LayerView extends Component{
     constructor(props){
         super(props);
     }
     static get propTypes() {
         return {
-            name: PropTypes.any
+            name: PropTypes.any,
+            height: PropTypes.string,
+            width: PropTypes.string
         };
     }
     render(){
-        const { name } = this.props;
+        const { name, height, width } = this.props;
         return (
-            <canvas  className={'layer-item'} view-name={name} width={'100px'} height={'100px'} ref={name} >
-                { name }
+            <canvas  className={'layer-item'} 
+                view-name={name} 
+                width={width} 
+                height={height} 
+                ref={(c)=>{this.el = c;}} >
             </canvas>
         );
     }

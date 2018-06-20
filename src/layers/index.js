@@ -4,7 +4,7 @@ import VectorLayer from './VectorLayer';
 import AnimLayer from './AnimLayer';
 import SelectionLayer from './SelectionLayer';
 import EditLayer from './EditLayer';
-
+import layers from './layers';
 
 export {
     LayerBase,
@@ -12,5 +12,6 @@ export {
     VectorLayer,
     AnimLayer,
     SelectionLayer,
-    EditLayer
+    EditLayer,
+    layers
 };
