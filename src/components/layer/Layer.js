@@ -16,12 +16,32 @@
  */
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
+import proxy from '../../proxy';
+import {LAYER_CLEAR} from '../../actionTypes';
+
 
 require('./style.css');
-
 class LayerView extends Component{
     constructor(props){
         super(props);
+        proxy.subscribe(()=>{
+            const { layers, action} = proxy.getState();
+            const {name,width,height} = this.props;
+            if (layers&&(layers[name]===true)
+                && action
+                && (action.type===LAYER_CLEAR)) {  
+                          
+                this.getContext().clearRect(
+                    0,
+                    0,
+                    Number.parseFloat(width),
+                    Number.parseFloat(height));
+            }
+        });
+    }
+    getContext(){
+        const el = this[this.props.name];
+        return el.getContext('2d');
     }
     static get propTypes() {
         return {

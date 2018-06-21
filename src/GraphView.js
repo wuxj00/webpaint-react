@@ -1,11 +1,15 @@
-import { LayerBase } from './layers/';
+import { LayerBase, MapLayer } from './layers/';
 import { nodes } from './model/';
-
+import {LAYER_CLEAR} from './actionTypes';
 import proxy from './proxy';
-proxy.dispatch({
-    type: 'LAYER/REDRAW',
-    name: 'anim-layer'
-});
+
+setTimeout(()=>{
+    proxy.dispatch({
+        type: LAYER_CLEAR,
+        name: MapLayer.name
+    });
+},300);
+    
 export default {
     LayerBase,
     nodes

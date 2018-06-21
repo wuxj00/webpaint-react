@@ -4,8 +4,14 @@ import VectorLayer from './VectorLayer';
 import AnimLayer from './AnimLayer';
 import SelectionLayer from './SelectionLayer';
 import EditLayer from './EditLayer';
-import layers from './layers';
 
+const layers = [
+    MapLayer.name,
+    VectorLayer.name,
+    AnimLayer.name,
+    SelectionLayer.name,
+    EditLayer.name
+];
 export {
     LayerBase,
     MapLayer,

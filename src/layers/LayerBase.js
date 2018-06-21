@@ -1,22 +1,25 @@
 import Entity from '../model/Entity';
+import proxy from '../proxy';
 export default class LayerBase extends Entity{
     constructor(param){
         super(param);
-        this.view = null;
+        this.proxy = proxy;
+        this.name = this.constructor.name;
+        proxy.subscribe(()=>{
+            const {action} = proxy.getState();
+            console.log(action);
+        });
     }
     /**
      * 获取视图Dom
      */
-    getView() {
-        return 'hello world';
-    }
-    getContext(){
-
+    getName(){
+        return this.name;
     }
     redraw(){
     }
     clear(){
-        const ctx = this.getContext();
-        ctx && ctx.clear();
+    }
+    destroy(){
     }
 }
